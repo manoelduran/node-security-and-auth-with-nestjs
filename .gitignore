@@ -2,6 +2,9 @@
 /dist
 /node_modules
 .env
+cert.pem
+key.pem
+privkey.pem
 # Logs
 logs
 *.log

@@ -11,4 +11,9 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
+  secretCode(@Res() res: Response): any {
+    return res.send(
+      `Your perssonal secret code is ${process.env.SECRET_CODE}!`,
+    );
+  }
 }
