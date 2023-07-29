@@ -14,6 +14,7 @@ export class AppController {
   async downloadFile(@Res() res: Response): Promise<any> {
     return this.appService.getFile(res);
   }
+
   @Get('secret')
   async secretCode(@Res() res: Response): Promise<string> {
     return this.appService.secretCode(res);

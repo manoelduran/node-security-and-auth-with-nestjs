@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { join } from 'path';
+import { checkLoggedInMiddleware } from './app.middleware';
 
 @Module({
   imports: [
@@ -15,4 +21,10 @@ import { join } from 'path';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(checkLoggedInMiddleware)
+      .forRoutes({ path: 'secret', method: RequestMethod.GET });
+  }
+}
